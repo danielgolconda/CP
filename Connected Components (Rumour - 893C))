@@ -1,0 +1,62 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#define lld long long int
+using namespace std;
+long long int n;
+long long int m;
+long long int a[100000];
+vector <long long int> adj[100000];
+long long int vis[100000]={0};
+vector <lld> ans;
+int dfs(int s)
+{
+    vis[s]=1;
+    ans.push_back(a[s]);
+    for(int u:adj[s])
+    {
+        if(!vis[u])
+        {
+            dfs(u);
+        }
+        else
+        {
+            continue;
+        }
+    }
+}
+int main() 
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    lld i,res=0;
+    cin>>n>>m;
+        for(i=0;i<n;i++)
+        {
+            cin>>a[i];
+        }
+        for(i=0;i<m;i++)
+        {
+            lld x,y;
+            cin>>x>>y;
+            x--;
+            y--;
+            adj[x].push_back(y);
+            adj[y].push_back(x);
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(!vis[i])
+            {
+                dfs(i);
+                sort(ans.begin(),ans.end());
+                res+=ans[0];
+                ans.clear();
+                }         
+            
+        }
+        cout<<res<<endl;
+    
+	return 0;
+}
+/* Rumour Problem From Codeforces */
