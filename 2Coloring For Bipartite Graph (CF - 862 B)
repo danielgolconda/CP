@@ -1,0 +1,64 @@
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+vector<long long int> adj[1000000];
+queue<long long int> q;
+vector<long long int> vis;
+vector<long long int> col;
+long long int n,s;
+int main() 
+{
+    long int n;
+    cin>>n;
+    vector <long long int> adj[n];
+    vector<long long int> vis;
+    queue <long long int> q;
+    vector <long long int> col;
+    for(int i=0;i<n-1;i++)
+    {
+        int x,y;
+        cin>>x>>y;
+        x--;
+        y--;
+        adj[x].push_back(y);
+        adj[y].push_back(x);
+    }
+    vis.resize(n);
+    fill(vis.begin(),vis.end(),0);
+    col.resize(n);
+    fill(col.begin(),col.end(),-1);
+    q.push(0);
+    col[0]=0;
+    while(!q.empty())
+    {
+       long long int v=q.front();
+        q.pop();
+        for(auto u:adj[v])
+        {
+           
+                if(col[u] == col[v])
+                {
+                    break;
+                }
+                else if(col[u] == -1)
+                {
+                      col[u]=1-col[v]; 
+                      q.push(u);
+                }
+        }
+    }
+    long long int c=0,c1=0;
+    for(long int i=0;i<col.size();i++)
+    {
+        //cout<<col[i]<<" ";
+        if(col[i] == 0)
+        {
+            c++;
+        }
+        else if(col[i] == 1)
+        {
+            c1++;
+        }
+    }cout<<c*c1-n+1<<endl;
+    return 0;
+}
