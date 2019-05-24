@@ -1,0 +1,39 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#define lld long long int 
+using namespace std;
+int main() 
+{
+    int tc;
+    cin>>tc;
+    while(tc--)
+    {
+        int m=INT_MIN;
+        string s;
+        cin>>s;
+        stack <int> st;
+        st.push(-1);
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i] == '(')
+            {
+                st.push(i);
+            }
+            else if(s[i] == ')')
+            {
+                st.pop();
+                if(!st.empty())
+                {
+                    int t=st.top();
+                    m=max(m,i-t);
+                }
+                else
+                {
+                    st.push(i);
+                }
+            }
+        }
+        cout<<m<<endl;
+    }
+	return 0;
+}
