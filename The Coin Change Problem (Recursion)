@@ -22,13 +22,13 @@ lld c(lld n,lld k)
 }
 int main() 
 {
-	lld sum;
-	cin >> sum >> k;
+	lld n;
+	cin >> n >> k;
 	for(int i=0;i<k;i++)
 	{
 	    cin >> a[i];
 	}
-	lld x=c(sum,k);
+	lld x=c(n,k);
 	cout<<x<<endl;
 	return 0;
 }
