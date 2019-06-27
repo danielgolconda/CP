@@ -1,0 +1,76 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+int n,m,flag;
+char a[100][100];
+int vis[100][100];
+int dx[4]={0,0,1,-1};
+int dy[4]={1,-1,0,0,};
+void dfs(int x,int y,int ox,int oy,char nc)
+{
+    if(x<0 || x>=n || y<0 || y>=m)
+    {
+        return ;
+    }
+   if(a[x][y]!=nc)
+    {
+        return ;
+    }
+    if(vis[x][y] == 1)
+    {
+        flag=1;
+        return ;
+    }
+    vis[x][y]=1;
+    for(int h=0;h<4;h++)
+    {
+            int nx=x+dx[h];
+            int ny=y+dy[h];
+            if(nx == ox && ny == oy)
+            {
+                continue;
+            }
+            dfs(nx,ny,x,y,a[x][y]);
+    }
+}
+int main() 
+{
+    flag=0;
+    for(int i=0;i<100;i++)
+    {
+        for(int j=0;j<100;j++)
+        {
+            vis[i][j]=0;
+        }
+    }
+    cin >> n >> m;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            cin >> a[i][j];
+        }
+    }
+        for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            if(!flag)
+            {
+                if(!vis[i][j])
+                {
+                 dfs(i,j,-1,-1,a[i][j]);   
+                }
+            }
+        }
+    }
+    if(flag)
+    {
+        cout<<"Yes"<<endl;
+    }
+    else
+    {
+        cout<<"No"<<endl;
+    }
+	return 0;
+}
