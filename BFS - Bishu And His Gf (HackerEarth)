@@ -1,0 +1,56 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+const int MAXN=2000;
+vector <int> adj[MAXN];
+vector <int> vis(MAXN,0);
+int main() 
+{
+    int n;
+    cin >> n;
+    for(int i=0;i<n-1;i++)
+    {
+        int x,y;
+        cin >> x >> y;
+        adj[x].push_back(y);
+    }
+    queue <int> q;
+    q.push(1);
+    vis[1]=1;
+    vector <int> reach(n+1,0);
+    while(!q.empty())
+    {
+        int f=q.front();
+        q.pop();
+        for(int u:adj[f])
+        {
+            if(!vis[u])
+            {
+            q.push(u);
+            reach[u]=1+reach[f];
+            vis[u]=1;   
+            }
+        }
+    }
+    int d,m=INT_MAX,ans=INT_MAX;
+    cin >> d;
+    for(int i=0;i<d;i++)
+    {
+     int r;
+     cin >>r;
+     if(m > reach[r])
+     {
+         m=reach[r];
+         ans=r;
+     }
+     if(m == reach[r])
+     {
+         if(ans > r)
+         {
+             ans=r;
+         }
+     }
+    }
+     cout<<ans<<endl;
+	return 0;
+}
